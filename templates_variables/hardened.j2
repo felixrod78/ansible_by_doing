@@ -1,0 +1,3 @@
+%sysops {{ ansible_default_ipv4.address }} = (ALL) ALL
+Host_Alias CONTROL = {{ groups['control']|join(', ') }}
+
