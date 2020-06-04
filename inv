@@ -1,0 +1,2 @@
+[control]
+felix1 ansible_host=34.239.101.63  ansible_ssh_user=ansible ansible_user=ansible
