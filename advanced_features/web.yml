@@ -1,4 +1,5 @@
 ---
+  # ansible-playbook --ask-vault-pass  12345 web.yml
 - hosts: webservers
   become: yes
   vars_files:
@@ -11,6 +12,22 @@
       notify: httpd service
       tags:
         - base-install
+    - name: copy vhost
+      template:
+        src: vhost.conf.j2
+        dest: /etc/httpd/conf.d/vhost.conf
+      notify: httpd service
+      tags:
+        - vhost
+    - name: conf auth
+      template:
+        src: htpasswd.j2
+        dest: /etc/httpd/conf/htpasswd
+      notify: httpd restart
+      tags:
+        - vhost  
+
+
   handlers:
     - name: Restart and enable httpd
       service:
