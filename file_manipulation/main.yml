@@ -1,0 +1,24 @@
+---
+- hosts: qa-servers
+  become: yes
+  tasks:
+  - name: uncompress
+    unarchive:
+      src: /tmp/enigma.tgz
+      dest: /opt
+      remote_src: yes   
+  - name: change liune
+    lineinfile:
+      path: /opt/enigma/details.txt
+      regexp: DEPLOY_CODE
+      line: CODE_RED
+  - name: Change file ownership, group and permissions
+    file:
+      path: /opt/enigma/secret/
+      group: protected
+      recurse: yes
+  - name: Delete file
+    file:
+      path: /opt/enigma/tmp/deployment-passwords.txt
+      state: absent
+      
