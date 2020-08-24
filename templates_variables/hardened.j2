@@ -1,3 +1,22 @@
+ORIGEN TEMMPLATE
 %sysops {{ ansible_default_ipv4.address }} = (ALL) ALL
-Host_Alias CONTROL = {{ groups['control']|join(', ') }}
+Host_Alias WEBSERVERS = {{ groups['web']|join(', ') }}
+Host_Alias DBSERVERS = {{ groups['database']|join(', ') }} 
+%httpd WEBSERVERS = /bin/su - webuser
+%dba DBSERVERS = /bin/su - dbuser
+
+
+DESTINO TEMPLATE
+
+%sysops 10.0.1.115 = (ALL) ALL
+Host_Alias WEBSERVERS = node1
+Host_Alias DBSERVERS = node2 
+%httpd WEBSERVERS = /bin/su - webuser
+%dba DBSERVERS = /bin/su - dbuser
+
+
+
+
+
+
 
